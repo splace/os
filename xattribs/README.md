@@ -8,7 +8,7 @@ example: dropbox files.(which only have one attribute called "attributes")
     import "os"
     import "github.com/splace/os/xattribs"
   
-    file,err := os.Open(<<path>>)
+    file,err := os.Open(<<path to dropbox file>>)
     if err==nil {
   		  //  make a new os.File extended with access to extened attribs.
   		  DropBoxAttribAwareFile:=osx.NewFileNS(*file,"user.com.dropbox")
