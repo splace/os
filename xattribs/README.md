@@ -6,7 +6,7 @@ Linux supported, Mac not difficult, Windows possible.
 example: dropbox files.(which only have one attribute called "attributes")
 
     import "os"
-    import "github.com/splace/osx"
+    import "github.com/splace/os/xattribs"
   
     file,err := os.Open(<<path>>)
     if err==nil {
@@ -17,9 +17,9 @@ example: dropbox files.(which only have one attribute called "attributes")
 	
 installation:
 
-     go get github.com/splace/osx
+     go get github.com/splace/os/xattribs
 
-uses: (basically about avoiding a separate config file so allowing persistence if not able to add files, and ease of copying with persitence with using a folder.)
+uses: (basically about avoiding a separate config file so allowing persistence if not able to add files, and ease of copying wilst retaining persistence, without using a folder.)
 
 attach expensive to parse file info.
 
