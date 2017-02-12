@@ -1,5 +1,4 @@
 // Package xattribs facilitates use of a files extended attributes. (see: https://en.wikipedia.org/wiki/Extended_file_attributes)
-// summary: supported on modern FS's, some have limited size and copying a file between fs's may loose them.
 package xattribs
 
 import "os"
