@@ -3,10 +3,10 @@ package xattribs
 
 import "os"
 
-// FileNS's embed an os.File, and have behaviour to allow access to a particular namespace of extended attributes from that file.
+// FileNS's embed an os.File, and have behaviour to allow access to a particular Namespace of extended attributes from that file.
 type FileNS struct {
 	*os.File
-	namespace string
+	Namespace string
 }
 
 const sep byte = '.'
@@ -24,8 +24,8 @@ func (f FileNS) parse(raw []byte) map[string]string {
 	for pos, b := range raw {
 		if b == 0 {
 			item := string(raw[itemStart:pos])
-			if item[len(f.namespace)] == sep && item[:len(f.namespace)] == f.namespace {
-				attribs[item[len(f.namespace)+1:]] = ""
+			if item[len(f.Namespace)] == sep && item[:len(f.Namespace)] == f.Namespace {
+				attribs[item[len(f.Namespace)+1:]] = ""
 			}
 			itemStart = pos + 1
 		}
@@ -43,7 +43,7 @@ func (f FileNS) Populate(attribs map[string]string) error {
 	return nil
 }
 
-// Flush updates all attributes from map, deletes any not present, within same namespace
+// Flush updates all attributes from map, deletes any not present, within same Namespace
 func (f FileNS) Flush(attribs map[string]string) error {
 	var err error
 	temp, err := f.Attribs()
