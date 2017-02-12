@@ -15,7 +15,7 @@ func TestAccess(t *testing.T) {
 		panic("FileNS: can't make test file")
 	}
 
-	FileNS := NewFileNS(*testFile, "user")
+	FileNS := NewFileNS(testFile, "user")
 	if err := FileNS.Set("one", []byte("1?")); err != nil {
 		t.Error(FileNS.File.Name() + " Set(\"one\") fromNS:\"" + FileNS.namespace + "\" - " + err.Error())
 	}
@@ -62,11 +62,11 @@ func TestAccessNS(t *testing.T) {
 		panic("FileNS: can't make test file")
 	}
 
-	FileNS1 := NewFileNS(*testFile, "user.test")
+	FileNS1 := NewFileNS(testFile, "user.test")
 	if err := FileNS1.Set("one", []byte("1")); err != nil {
 		t.Error(FileNS1.File.Name() + " Set(\"one\") fromNS:\"" + FileNS1.namespace + "\" - " + err.Error())
 	}
-	FileNS2 := NewFileNS(*testFile, "other")
+	FileNS2 := NewFileNS(testFile, "other")
 	if _, err := FileNS2.Get("one"); err == nil {
 		t.Error(FileNS2.File.Name() + " Get(\"one\") fromNS:\"" + FileNS2.namespace + "\" - " + err.Error())
 	}

@@ -6,16 +6,16 @@ import "os"
 
 // FileNS's embed an os.File, and have behaviour to allow access to a particular namespace of extended attributes from that file.
 type fileNS struct {
-	os.File
+	*os.File
 	namespace string
 }
 
 // NewFileNS returns an extended attrib aware File, with namespace set.
 // has methods to save/load file attributes to/from a variable, used for multiple/cached/templated/non-immediate manipulation
 // store type: map[string(NAME)]string(VALUE)
-func NewFileNS(f os.File, namespace string) *fileNS {
+func NewFileNS(f *os.File, namespace string) fileNS {
 	xas := fileNS{f, namespace}
-	return &xas
+	return xas
 }
 
 const sep byte = '.'
@@ -43,7 +43,7 @@ func (f fileNS) parse(raw []byte) map[string]string {
 }
 
 // Populate fills in attribute map values
-func (f *fileNS) Populate(attribs map[string]string) error {
+func (f fileNS) Populate(attribs map[string]string) error {
 	for tag:= range attribs {
 		if attrib, err := f.Get(tag);err == nil {
 			attribs[tag] = string(attrib)
@@ -53,7 +53,7 @@ func (f *fileNS) Populate(attribs map[string]string) error {
 }
 
 // Flush updates all attributes from map, deletes any not present, within same namespace
-func (f *fileNS) Flush(attribs map[string]string) error {
+func (f fileNS) Flush(attribs map[string]string) error {
 	var err error
 	temp, err := f.Attribs()
 	if err != nil {
