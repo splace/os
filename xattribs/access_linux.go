@@ -8,7 +8,7 @@ const ssep string = string(sep)
 // namespace restricted
 
 // gets an attribute value as bytes
-func (f fileNS) Get(tag string) ([]byte, error) {
+func (f FileNS) Get(tag string) ([]byte, error) {
 	if size, err := syscall.Getxattr(f.File.Name(), f.namespace+ssep+tag, nil); err == nil {
 		buf := make([]byte, size)
 		if read, err := syscall.Getxattr(f.File.Name(), f.namespace+ssep+tag, buf); err == nil {
@@ -22,17 +22,17 @@ func (f fileNS) Get(tag string) ([]byte, error) {
 }
 
 // sets an attribute's value from bytes.
-func (f fileNS) Set(tag string, data []byte) error {
+func (f FileNS) Set(tag string, data []byte) error {
 	return syscall.Setxattr(f.File.Name(), f.namespace+ssep+tag, data, 0)
 }
 
 // deletes an attribute.
-func (f fileNS) Remove(tag string) error {
+func (f FileNS) Remove(tag string) error {
 	return syscall.Removexattr(f.File.Name(), f.namespace+ssep+tag)
 }
 
 // updates an attribute, returns error if attribute not pre-existing.
-func (f fileNS) Update(tag string, data []byte) error {
+func (f FileNS) Update(tag string, data []byte) error {
 	if _, err := syscall.Getxattr(f.File.Name(), f.namespace+ssep+tag, nil); err == nil {
 		return f.Set(tag, data)
 	} else {
@@ -41,7 +41,7 @@ func (f fileNS) Update(tag string, data []byte) error {
 }
 
 // returns attribute names in bytes, nul char delimitted.
-func (f fileNS) list() ([]byte, error) {
+func (f FileNS) list() ([]byte, error) {
 	if size, err := syscall.Listxattr(f.File.Name(), nil); err == nil {
 		buf := make([]byte, size)
 		if read, err := syscall.Listxattr(f.File.Name(), buf); err == nil {
