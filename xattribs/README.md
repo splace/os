@@ -29,12 +29,12 @@ installation:
 
 uses: (basically about avoiding a separate config file so allowing persistence if not able to add files, and ease of copying whilst retaining persistence, without using a folder.)
 
+persist options to an executable directly.  (see examples)
+ 
 attach expensive to parse file info.
 
 backup a files original name before performing complex batch renaming.
 
-persist options to an executable directly.  
- 
 docs: 
      
 [![GoDoc](https://godoc.org/github.com/splace/os/xattribs?status.svg)](https://godoc.org/github.com/splace/os/xattribs)  xattribs 
