@@ -5,21 +5,32 @@ caveat: is supported on virtually all modern FS's, but some have limited size an
 
 Linux supported, Mac not difficult, Windows possible.
 
-example: reads its own executables dropbox attribute.(so has to be compiled into a dropbox folder.)
+example: persists a flag option into an attribute on the executable.
 
 	package main
 
-	import "os"
+	import "flag"
 	import "fmt"
+	import "os"
+	import "log"
 	import "github.com/splace/os/xattribs"
 
-	func main(){
-		file,err := os.Open(os.Args[0])
-		if err==nil {
-			//  make a new os.File extended with methods to extended file attribs.
-			DropBoxAttribAwareFile:=xattribs.FileNS{file,"user.com.dropbox"}
-			attrs,err:=DropBoxAttribAwareFile.Get("attributes") // the only dropbox attribute
-			fmt.Println(err,attrs)
+	const attrib="message"
+
+	func main() {
+		thisFile,err := os.Open(os.Args[0])
+		if err!=nil {panic(err)}
+		xf:=xattribs.FileNS{thisFile,"user.com.github"}  // use github as test namespace
+		bs,err:=xf.Get(attrib) 
+		if err!=nil {log.Printf("\"%s\" attrib in \"%s\" not got.(%s)\n",attrib,xf.Name(),err)}
+		mess:= flag.String(attrib, string(bs), "persisted "+attrib)
+		flag.Parse()
+		fmt.Println(*mess)
+		if *mess!=string(bs){
+			err=xf.Set(attrib,[]byte(*mess))
+			if err!=nil{
+				log.Fatal(err)
+			}
 		}
 	}
 
@@ -27,7 +38,7 @@ installation:
 
      go get github.com/splace/os/xattribs
 
-uses: (basically about avoiding a separate config file so allowing persistence if not able to add files, and ease of copying whilst retaining persistence, without using a folder.)
+uses: (basically all about not needing a separate config file, allowing persistence if not able to add files, also eases copying whilst retaining persistence.)
 
 persist options to an executable directly.  (see examples)
  
