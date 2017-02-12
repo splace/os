@@ -10,8 +10,6 @@ type fileNS struct {
 }
 
 // NewFileNS returns an extended attrib aware File, with namespace set.
-// has methods to save/load file attributes to/from a variable, used for multiple/cached/templated/non-immediate manipulation
-// store type: map[string(NAME)]string(VALUE)
 func NewFileNS(f *os.File, namespace string) fileNS {
 	xas := fileNS{f, namespace}
 	return xas
@@ -19,7 +17,7 @@ func NewFileNS(f *os.File, namespace string) fileNS {
 
 const sep byte = '.'
 
-// Attribs returns a map with keys set to existing attribute names, values not set.(see Populate())
+// Attribs returns a map with keys set to existing attribute names, but values not set.(see Populate())
 func (f fileNS) Attribs() (map[string]string, error) {
 	buf, err := f.list()
 	return f.parse(buf), err

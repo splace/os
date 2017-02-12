@@ -27,13 +27,13 @@ installation:
 
      go get github.com/splace/os/xattribs
 
-uses: (basically about avoiding a separate config file so allowing persistence if not able to add files, and ease of copying wilst retaining persistence, without using a folder.)
+uses: (basically about avoiding a separate config file so allowing persistence if not able to add files, and ease of copying whilst retaining persistence, without using a folder.)
 
 attach expensive to parse file info.
 
 backup a files original name before performing complex batch renaming.
 
-persist options to an executable.  
+persist options to an executable directly.  
  
 docs: 
      
