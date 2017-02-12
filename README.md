@@ -1,2 +1,1 @@
-# os
-  * /xattribs - access to extended file attributes on linux
+  * os/xattribs - access to extended file attributes on linux
