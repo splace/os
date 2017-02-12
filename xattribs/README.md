@@ -16,7 +16,7 @@ example: reads its own executables dropbox attribute.(so has to be compiled into
 	func main(){
 		file,err := os.Open(os.Args[0])
 		if err==nil {
-			//  make a new os.File extended with access to extened attribs.
+			//  make a new os.File extended with methods to extended file attribs.
 			DropBoxAttribAwareFile:=xattribs.NewFileNS(file,"user.com.dropbox")
 			attrs,err:=DropBoxAttribAwareFile.Get("attributes") // the only dropbox attribute
 			fmt.Println(err,attrs)
