@@ -3,18 +3,24 @@ access to [extended file attributes](https://en.wikipedia.org/wiki/Extended_file
 
 Linux supported, Mac not difficult, Windows possible.
 
-example: dropbox files.(which only have one attribute called "attributes")
+example: reads its own executables dropbox attribute.(so has to be compiled into a dropbox folder.)
 
-    import "os"
-    import "github.com/splace/os/xattribs"
-  
-    file,err := os.Open(<<path to dropbox file>>)
-    if err==nil {
-  		  //  make a new os.File extended with access to extened attribs.
-  		  DropBoxAttribAwareFile:=osx.NewFileNS(*file,"user.com.dropbox")
-  		  attrs,err:=DropBoxAttribAwareFile.Get("attributes")
-  	}
-	
+	package main
+
+	import "os"
+	import "fmt"
+	import "github.com/splace/os/xattribs"
+
+	func main(){
+		file,err := os.Open(os.Args[0])
+		if err==nil {
+			//  make a new os.File extended with access to extened attribs.
+			DropBoxAttribAwareFile:=xattribs.NewFileNS(*file,"user.com.dropbox")
+			attrs,err:=DropBoxAttribAwareFile.Get("attributes") // the only dropbox attribute
+			fmt.Println(err,attrs)
+		}
+	}
+
 installation:
 
      go get github.com/splace/os/xattribs
