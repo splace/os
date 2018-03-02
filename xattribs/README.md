@@ -47,7 +47,7 @@ uses:
 
 *	retaining persistence accross copy
 
-*	persist options directly on an executable directly.  (see examples)
+*	persist options directly on an executable  (see examples)
  
 *	persist to a file some expensive to parse info.
 
